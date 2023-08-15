@@ -1,6 +1,9 @@
 package main
 
-import "strconv"
+import (
+	"container/list"
+	"strconv"
+)
 
 func binaryTreePaths(root *TreeNode) []string {
 	var recursion func(node *TreeNode, s string)
@@ -23,3 +26,28 @@ func binaryTreePaths(root *TreeNode) []string {
 	return res
 }
 
+func binaryTreePaths2(root *TreeNode) []string {
+	st := list.New()
+	paths := list.New()
+	st.PushBack(root)
+	paths.PushBack("")
+	var curNode *TreeNode
+	var res []string
+	for st.Len() > 0 {
+		path := paths.Remove(paths.Front()).(string)
+		curNode = st.Remove(st.Front()).(*TreeNode)
+		if curNode.Left == nil && curNode.Right == nil {
+			v := path + strconv.Itoa(curNode.Val)
+			res = append(res, v)
+		}
+		if curNode.Left != nil {
+			st.PushBack(curNode.Left)
+			paths.PushBack(path + strconv.Itoa(curNode.Val) + "->")
+		}
+		if curNode.Right != nil {
+			st.PushBack(curNode.Right)
+			paths.PushBack(path + strconv.Itoa(curNode.Val) + "->")
+		}
+	}
+	return res
+}
