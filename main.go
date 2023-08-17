@@ -3,10 +3,9 @@ package main
 import "fmt"
 
 func main() {
-	var a func()
-	var b = 12
-	a = func() {
-		fmt.Println(b)
-	}
-	a()
+	var res []int
+	fmt.Printf("%p\n", res)
+	res = append(res,1)
+	fmt.Printf("%p\n", res)
+	fmt.Println(res)
 }
