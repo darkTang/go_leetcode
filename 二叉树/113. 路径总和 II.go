@@ -8,12 +8,14 @@ func pathSum(root *TreeNode, targetSum int) (res [][]int) {
 		}
 		*temp = append(*temp, node.Val)
 		targetSum-=node.Val
-		if node.Left == nil && node.Right == nil && targetSum == 0 {
+		if node.Left == nil && node.Right == nil  {
+			if targetSum == 0 {
 				pathCopy := make([]int, len(*temp))
 				for i, element := range *temp {
 					pathCopy[i] = element
 				}
 				*res = append(*res, pathCopy)
+			}
 		}
 		traverse(node.Left, targetSum, temp, res)
 		traverse(node.Right, targetSum,temp, res)
